@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { decrement, increment } from './Counter/counter.actions';
 
 @Component({
   selector: 'app-root',
@@ -7,18 +9,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'counter-app-with-redux';
+  counter!: number;
 
-  counter: number;
-
-  constructor(){
-    this.counter = 20;
+  constructor(private store: Store<{counter: number}>){
+    // this.counter = 20;
+    this.store.subscribe((state) => {
+      this.counter = state.counter;
+    })
   }
 
   increase(): void{
-    this.counter += 1;
+    this.store.dispatch(increment());
   }
 
   decrease(): void{
-    this.counter -= 1;
+    this.store.dispatch(decrement());
   }
 }
