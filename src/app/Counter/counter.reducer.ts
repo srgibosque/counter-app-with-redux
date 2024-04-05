@@ -19,7 +19,9 @@ export const initialState = 0;
 const _counterReducer = createReducer(
   initialState,
   on(actions.increment, (state: number) => state + 1 ),
-  on(actions.decrement, (state: number) => state - 1 )
+  on(actions.decrement, (state: number) => state - 1 ),
+  on(actions.duplicate, (state: number, {number}) => state * number),
+  on(actions.reset, () => initialState)
 );
 
 export function counterReducer(state: number | undefined, action: Action){
